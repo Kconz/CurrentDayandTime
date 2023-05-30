@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Current Day</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: antiquewhite;
+      color: #5f5a5a;
+    }
+    #frame {
+      height: 300px;
+      width: 400px;
+      background-color: rgba(161, 204, 198, 0.719);
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+    .container {
+      margin: 10px;
+      padding: 5px;
+      line-height: 40px;
+    }
+    h1 {
+      font-size: 2em;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+  </style>
+  <body>
+    <div id="frame">
+      <h1>Java Script Current Day</h1>
+      <div class="box container">
+        <h2 id="today"></h2>
+        <h2 id="currentTime"></h2>
+      </div>
+    </div>
+    <script>
+        //Update every seconds 
+      setInterval(() => {
+        let today = new Date();
+        // get today and transform to day list
+        // Day list
+        let dayList = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+
+        let day = today.getDay();
+        let hour = today.getHours();
+        const minute = today.getMinutes();
+        const second = today.getSeconds();
+
+        // Time AM and PM checked
+        let prepand = hour >= 12 ? " AM " : " PM ";
+        hour = hour >= 12 ? hour - 12 : hour;
+        if (hour === 0 && prepand === " PM ") {
+          if (minute === 0 && second === 0) {
+            hour = 12;
+            prepand = "Noon";
+          } else {
+            hour = 12;
+            prepand = " PM ";
+          }
+        }
+        if (hour === 0 && prepand === " AM") {
+          if (minute === 0 && second === 0) {
+            hour = 12;
+            prepand = "Midnight";
+          } else {
+            hour = 12;
+            prepand = " AM ";
+          }
+        }
+        //   console.log(
+        //     `Current Time : ${hour}${prepand} : ${minute} minute : ${second} second`
+        //   );
+        const currentDay = document.querySelector("#today");
+        const currentTime = document.querySelector("#currentTime");
+        currentDay.innerHTML = `Today is : ${dayList[day]}`;
+        currentTime.innerHTML = `Current Time : ${hour}${prepand} : ${minute} minute : ${second} second`;
+      }, 1000);
+    </script>
+  </body>
+</html>
